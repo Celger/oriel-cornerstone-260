@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="oriel-cornerstone-260",
-    version="0.0.1",
+    version="0.0.2",
     author="Brian Carlsen",
     author_email="carlsen.bri@gmail.com",
     description="Controller class for communicating with an Oriel Cornerstone 260 monochromator.",
@@ -20,5 +20,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
         "Development Status :: 3 - Alpha"
     ],
-    install_requires=[ 'serial' ]
+    install_requires=[ 'pyserial' ]
 )

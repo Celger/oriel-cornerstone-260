@@ -7,20 +7,20 @@
 # 
 # For documentation see the [Oriel Cornerstone Manual](https://www.newport.com/medias/sys_master/images/images/hae/h47/8797226926110/Oriel-Cornerstone-260-User-Manual-RevA.pdf).
 
-# In[97]:
+# In[2]:
 
 
 import serial
 from collections import namedtuple
 
 
-# In[98]:
+# In[3]:
 
 
 Response = namedtuple( 'Response', [ 'statement', 'response' ] )
 
 
-# In[103]:
+# In[88]:
 
 
 class Monochromator:
@@ -36,15 +36,16 @@ class Monochromator:
         :param timeout: Communication timeout.
         """
         self.port = port
-        self.com = serial.Serial( port, timeout = timeout )
         self.term_chars = '\r\n'
+        self.encoding = 'utf-8'
+        self._com = serial.Serial( port, timeout = timeout )
         
         
     def __del__( self ):
         """
         Closes serial port connection.
         """
-        self.com.close()
+        self._com.close()
         
         
     def __getattr__( self, attr ):
@@ -53,22 +54,25 @@ class Monochromator:
         
         :param attr: Attribute.
         """
-        return getattr( self.com, attr )
+        return getattr( self._com, attr )
+    
     
     #--- low level methods ---
+    
     
     def connect( self ):
         """
         Connects to the device.
         """
-        self.com.open()
+        self._com.open()
         
         
     def disconnect( self ):
         """
         disconnects from the device.
         """
-        self.com.close()
+        self._com.close()
+    
     
     def write( self, msg ):
         """
@@ -79,8 +83,8 @@ class Monochromator:
         """
         msg += self.term_chars
         msg = msg.upper()
-        msg = msg.encode( 'utf-8' )
-        return self.com.write( msg )
+        msg = msg.encode( self.encoding )
+        return self._com.write( msg )
        
     
     def read( self ):
@@ -89,7 +93,8 @@ class Monochromator:
         
         :returns: The response.
         """
-        resp = self.com.read_until( self.term_chars ).decode( 'utf-8' )
+        resp = self._com.read_until( self.term_chars.encode( self.encoding ) )
+        resp = resp.decode( self.encoding )
         return resp
     
     
@@ -120,12 +125,13 @@ class Monochromator:
         
         self.write( msg )
         
-        resp = self.read()
-        resp = resp.split( self.term_chars )
-        return Response( statement = resp[ 0 ], response = resp[ 1 ] )
+        statement = self.read().rstrip()
+        response  = self.read().rstrip()
+        return Response( statement = statement, response = response )
     
     
     #--- high level methods ---
+    
     
     @property
     def info( self ):
@@ -142,7 +148,8 @@ class Monochromator:
         :returns: Current wavelength position in nanometers.
         """
         resp = self.query( 'wave' )
-        return resp.response
+        resp = resp.response
+        return float( resp )
     
     
     def goto( self, wavelength ):
@@ -206,6 +213,7 @@ class Monochromator:
         cmd = 'C' if close else 'O'
         self.command( 'shutter', cmd )
         
+        
     @property
     def outport( self ):
         """
@@ -243,20 +251,32 @@ class Monochromator:
 
 # # Work
 
-# In[105]:
+# In[90]:
 
 
-# mono = Monochromator( 'COM9', timeout = 10 )
+# mono = Monochromator( 'COM9', timeout = 3 )
 
 
-# In[106]:
+# In[93]:
 
 
 # mono.position
 
 
-# In[104]:
+# In[92]:
 
 
-# mono.close()
+# mono.goto( 600 )
+
+
+# In[89]:
+
+
+# mono.disconnect()
+
+
+# In[ ]:
+
+
+
 

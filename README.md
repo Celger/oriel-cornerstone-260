@@ -41,6 +41,7 @@ High level methods are convenience methods used for commonly needed functions.
 
 
 ### Properties
++ **_com:** `Serial` connection from `pyserial`.
 + **connected:** Whether the device is connected or not.
 + **port:** Device port.
 + **term_chars:** Termination characters used for reading and writing. [Default: '\r\n']
