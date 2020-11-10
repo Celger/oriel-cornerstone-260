@@ -1,5 +1,5 @@
 # Oriel Cornerstone 260
-A library allowing easy control over an Oriel Cornerstone 260 monochromators with an RS-232C port.
+A library allowing easy control over an Oriel Cornerstone 260 monochromator with an RS-232C port.
 > Install with `python -m pip install oriel-cornerstone-260`
 
 ## Monochromator
