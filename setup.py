@@ -10,7 +10,7 @@ project_urls = {
 
 setuptools.setup(
     name="oriel-cornerstone-260",
-    version="0.0.3",
+    version="0.0.4",
     author="Brian Carlsen",
     author_email="carlsen.bri@gmail.com",
     description="Controller class for communicating with an Oriel Cornerstone 260 monochromator.",
