@@ -60,7 +60,7 @@ A `namedtuple` with properties `statement` which represents the command, and `re
 
 A basic example for using a Monochromator.
 ```python
-from oriel_cornerstone_260.monochromator import Monochromator
+from oriel_cornerstone_260 import Monochromator
 
 # create device
 mono = Monochromator( 'COM9' )
