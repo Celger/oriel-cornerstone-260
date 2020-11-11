@@ -222,6 +222,7 @@ class Monochromator:
         resp = self.query( 'outport' )
         return int( resp.response )
     
+    
     def set_outport( self, port ):
         """
         Sets the ouput port.
