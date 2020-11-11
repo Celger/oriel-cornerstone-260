@@ -1,5 +1,5 @@
 # Oriel Cornerstone 260
-A library allowing easy control over Oriel Cornerstone 260 monochromators.
+A library allowing easy control over an Oriel Cornerstone 260 monochromator with an RS-232C port.
 > Install with `python -m pip install oriel-cornerstone-260`
 
 ## Monochromator
@@ -58,7 +58,7 @@ A `namedtuple` with properties `statement` which represents the command, and `re
 
 A basic example for using a Monochromator.
 ```python
-from oriel_cornerstone_260 import Monochromator
+from oriel_cornerstone_260.monochromator import Monochromator
 
 # create device
 mono = Monochromator( 'COM9' )
@@ -72,3 +72,20 @@ mono.goto( 600 )
 
 #### Note
 A Monochromator is a ultimately a `Serial` object from `pyserial`, so you can call any functions on a Monochromator that you would on a Serial object.
+
+### The USB version
+The USB Newport/Oriel Cornerstone 260 works differently.
+It is Windows only and requires two proprietary .NET .DLLs from Newport.
+The Python interface is through the package [pythonnet](https://github.com/pythonnet/pythonnet).
+As of late 2020, these are 32 bit DLL's that require a 32-bit (not AMD64) version of python.
+
+```python
+import clr
+clr.AddReference('Cornerstone')
+import CornerstoneDll
+
+mono = CornerstoneDll.Cornerstone(True)
+if not mono.connect():
+  raise IOError('Monochromator not found')
+```
+The `mono` object will control the monochromator using methods documented in the Cornerstone 260 manual.
