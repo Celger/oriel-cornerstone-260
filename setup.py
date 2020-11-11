@@ -3,9 +3,14 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+project_urls = {
+    'Source Code':      'https://github.com/bicarlsen/oreil-cornerstone-260',
+    'Bug Tracker':      'https://github.com/bicarlsen/oreil-cornerstone-260/issues'
+}
+
 setuptools.setup(
     name="oriel-cornerstone-260",
-    version="0.0.2",
+    version="0.0.5",
     author="Brian Carlsen",
     author_email="carlsen.bri@gmail.com",
     description="Controller class for communicating with an Oriel Cornerstone 260 monochromator.",
@@ -13,6 +18,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     keywords=[ 'oriel', 'cornerstone', 'newport', 'monochromator' ],
     url="",
+    project_urls = project_urls,
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
