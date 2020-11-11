@@ -78,7 +78,7 @@ A Monochromator is a ultimately a `Serial` object from `pyserial`, so you can ca
 ---
 
 ### <a name="usb_connection"></a>USB Connection
-The USB Newport/Oriel Cornerstone 260 works differently.
+The USB Newport/Oriel Cornerstone 260 works differently, and **can not utilize this package**.
 It is Windows only and requires two proprietary .NET .DLLs from Newport.
 The Python interface is through the package [pythonnet](https://github.com/pythonnet/pythonnet).
 As of late 2020, these are 32 bit DLL's that require a 32-bit (not AMD64) version of python.
