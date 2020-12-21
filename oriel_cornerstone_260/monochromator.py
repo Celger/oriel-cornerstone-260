@@ -171,13 +171,13 @@ class Monochromator:
         """
         self.command( 'abort' )
         
-        
     @property
     def grating( self ):
         """
         :returns: Current grating and its properties.
         """
-        resp = self.query( 'grat' ).split( ',' )
+        resp = self.query( 'grat' )
+        resp = resp.response.split( ',' )
         return {
             'number': resp[ 0 ],
             'lines':  resp[ 1 ],
