@@ -4,13 +4,13 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 project_urls = {
-    'Source Code':      'https://github.com/bicarlsen/oreil-cornerstone-260',
-    'Bug Tracker':      'https://github.com/bicarlsen/oreil-cornerstone-260/issues'
+    'Source Code':      'https://github.com/bicarlsen/oriel-cornerstone-260',
+    'Bug Tracker':      'https://github.com/bicarlsen/oriel-cornerstone-260/issues'
 }
 
 setuptools.setup(
     name="oriel-cornerstone-260",
-    version="0.0.6",
+    version="0.0.7",
     author="Brian Carlsen",
     author_email="carlsen.bri@gmail.com",
     description="Controller class for communicating with an Oriel Cornerstone 260 monochromator.",
