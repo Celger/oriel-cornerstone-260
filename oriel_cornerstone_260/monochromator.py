@@ -5,20 +5,12 @@
 # For use with a Oriel Cornerstone 260 monochromator.
 # For documentation see the [Oriel Cornerstone Manual](https://www.newport.com/medias/sys_master/images/images/hae/h47/8797226926110/Oriel-Cornerstone-260-User-Manual-RevA.pdf).
 
-<<<<<<< HEAD
-
-=======
 from typing import Dict, Union
->>>>>>> dev
 import serial
 from collections import namedtuple
 
 
-<<<<<<< HEAD
-Response = namedtuple( 'Response', [ 'statement', 'response' ] )
-=======
 Response = namedtuple('Response', ['statement', 'response'])
->>>>>>> dev
 
 
 class Monochromator:
@@ -26,11 +18,7 @@ class Monochromator:
     Represents an Oriel Cornerstone 260 monochromator.
     """
 
-<<<<<<< HEAD
-    def __init__( self, port, timeout = 5 ):
-=======
     def __init__(self, port: str, timeout: int = 5):
->>>>>>> dev
         """
         Creates a new Monochromator.
 
@@ -40,70 +28,43 @@ class Monochromator:
         self.port = port
         self.term_chars = '\r\n'
         self.encoding = 'utf-8'
-<<<<<<< HEAD
-        self._com = serial.Serial( port, timeout = timeout )
-
-
-    def __del__( self ):
-=======
         self._com = serial.Serial(port, timeout = timeout)
 
 
     def __del__(self):
->>>>>>> dev
         """
         Closes serial port connection.
         """
         self._com.close()
 
 
-<<<<<<< HEAD
-    def __getattr__( self, attr ):
-=======
     def __getattr__(self, attr: str):
->>>>>>> dev
         """
         Pass unknown attributes to serial.
 
         :param attr: Attribute.
         """
-<<<<<<< HEAD
-        return getattr( self._com, attr )
-=======
         return getattr(self._com, attr)
->>>>>>> dev
 
 
     #--- low level methods ---
 
 
-<<<<<<< HEAD
-    def connect( self ):
-=======
     def connect(self):
->>>>>>> dev
         """
         Connects to the device.
         """
         self._com.open()
 
 
-<<<<<<< HEAD
-    def disconnect( self ):
-=======
     def disconnect(self):
->>>>>>> dev
         """
         disconnects from the device.
         """
         self._com.close()
 
 
-<<<<<<< HEAD
-    def write( self, msg ):
-=======
     def write(self, msg: str) -> int:
->>>>>>> dev
         """
         Writes a message to the monochromator.
 
@@ -112,19 +73,11 @@ class Monochromator:
         """
         msg += self.term_chars
         msg = msg.upper()
-<<<<<<< HEAD
-        msg = msg.encode( self.encoding )
-        return self._com.write( msg )
-
-
-    def read( self ):
-=======
         msg = msg.encode(self.encoding)
         return self._com.write(msg)
 
 
     def read(self) -> str:
->>>>>>> dev
         """
         Reads the buffer of the monochromator.
 
@@ -135,30 +88,13 @@ class Monochromator:
         return resp
 
 
-<<<<<<< HEAD
-    def command( self, cmd, *args ):
-=======
     def command(self, cmd: str, *args) -> str:
->>>>>>> dev
         """
         Sends a command to the monochromator.
 
         :param msg: Message to send.
         :returns: Command sent.
         """
-<<<<<<< HEAD
-        args = map( str, args )
-        msg = cmd + ' ' +  ' '.join( args )
-
-        self.write( msg )
-        return self.read().rstrip()
-
-
-    def query( self, msg ):
-        """
-        Queries the monochromator.
-        Equivalent to doing a write( msg ) then a read().
-=======
         args = map(str, args)
         msg = cmd + ' ' +  ' '.join(args)
 
@@ -170,7 +106,6 @@ class Monochromator:
         """
         Queries the monochromator.
         Equivalent to doing a write(msg) then a read().
->>>>>>> dev
 
         :param msg: Query message. '?' added if needed.
         :returns: A dictionary object containing the statement and response.
@@ -178,19 +113,11 @@ class Monochromator:
         if msg[-1] != '?':
             msg += '?'
 
-<<<<<<< HEAD
-        self.write( msg )
-
-        statement = self.read().rstrip()
-        response  = self.read().rstrip()
-        return Response( statement = statement, response = response )
-=======
         self.write(msg)
 
         statement = self.read().rstrip()
         response  = self.read().rstrip()
         return Response(statement = statement, response = response)
->>>>>>> dev
 
 
     #--- high level methods ---
@@ -212,63 +139,36 @@ class Monochromator:
         """
         resp = self.query('wave')
         resp = resp.response
-<<<<<<< HEAD
-        return float( resp )
-
-
-    def step( self, steps ):
-=======
         return float(resp)
 
 
     def step(self, steps: int):
->>>>>>> dev
         """
         Moves the monochromator a given number of steps.
 
         :param steps: Number of steps to move.
         """
-<<<<<<< HEAD
-        self.command( 'step', steps )
-
-
-    def goto( self, wavelength ):
-=======
         self.command('step', steps)
 
 
     def goto(self, wavelength: float) -> float:
->>>>>>> dev
         """
         Moves monochromator to given wavelength.
 
         :param wavelength: Desired wavelength in nanometers.
         :returns: Set wavelength.
         """
-<<<<<<< HEAD
-        wavelength = '{:.3f}'.format( wavelength )
-        self.command( 'gowave', wavelength )
-=======
         wavelength = f'{wavelength:.3f}'
         self.command('gowave', wavelength)
->>>>>>> dev
 
         return self.position
 
 
-<<<<<<< HEAD
-    def abort( self ):
-=======
     def abort(self):
->>>>>>> dev
         """
         Halts the monochromator.
         """
-<<<<<<< HEAD
-        self.command( 'abort' )
-=======
         self.command('abort')
->>>>>>> dev
 
 
     @property
@@ -286,31 +186,12 @@ class Monochromator:
         }
 
 
-<<<<<<< HEAD
-    def set_grating( self, grating ):
-=======
     def set_grating(self, grating: int):
->>>>>>> dev
         """
         Sets the grating.
 
         :param grating: Number of the grating.
         """
-<<<<<<< HEAD
-        self.command( 'grat', str( grating ) )
-
-
-    @property
-    def shuttered( self ):
-        """
-        :returns: True if shutter is close , False if open
-        """
-        resp = self.query( 'shutter' )
-        return ( resp.response == 'C' )
-
-
-    def shutter( self, close = True ):
-=======
         self.command('grat', grating)
 
 
@@ -367,7 +248,6 @@ class Monochromator:
 
 
     def shutter(self, close: bool = True):
->>>>>>> dev
         """
         Opens or closes the shutter.
 
@@ -375,11 +255,7 @@ class Monochromator:
             [Default: True]
         """
         cmd = 'C' if close else 'O'
-<<<<<<< HEAD
-        self.command( 'shutter', cmd )
-=======
         self.command('shutter', cmd)
->>>>>>> dev
 
 
     @property
@@ -387,39 +263,22 @@ class Monochromator:
         """
         :returns: The output port number.
         """
-<<<<<<< HEAD
-        resp = self.query( 'outport' )
-        return int( resp.response )
-
-
-    def set_outport( self, port ):
-=======
         resp = self.query('outport')
         return int(resp.response)
 
 
     def set_outport(self, port: int):
->>>>>>> dev
         """
         Sets the ouput port.
 
         :param port: Output port to set.
         """
-<<<<<<< HEAD
-        self.command( 'outport', str( port ) )
-
-
-    def slit_width( self, slit, width = None ):
-        """
-        Gets or sets the slit with.
-=======
         self.command('outport', port)
 
 
     def slit_width(self, slit: int, width: Union[int, None] = None) -> int:
         """
         Gets or sets the slit width.
->>>>>>> dev
 
         :param slit: Slit number.
         :param width: If None, returns current slit width.
@@ -429,12 +288,6 @@ class Monochromator:
         """
         cmd = f'slit{slit}microns'
         if width is not None:
-<<<<<<< HEAD
-            self.command( cmd, str( width ) )
-
-        resp = self.query( cmd )
-        return int( resp.response )
-=======
             self.command(cmd, width)
 
         resp = self.query(cmd)
@@ -457,4 +310,3 @@ class Monochromator:
             raise ValueError(f'Invalid filter value. Must be between {MIN_VAL} and {MAX_VAL}.')
         
         return True
->>>>>>> dev
