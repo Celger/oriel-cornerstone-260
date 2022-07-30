@@ -35,6 +35,10 @@ High level methods are convenience methods used for commonly needed functions.
 
 + **set_grating( grating ):** Sets the grating to the given number.
 
++ **set_filter( filter ):** Sets the filter to the given position.
+
++ **filter_label(filter, label = None ):** Gets or sets a filter's label.
+
 + **shutter( close = True ):** Open or close the shutter.
 
 + **set_outport( port ):** Sets the output port.
@@ -50,6 +54,7 @@ High level methods are convenience methods used for commonly needed functions.
 + **info:** Device info.
 + **position:** Wavelength position.
 + **grating:** Current grating and its properties. Returns a dictionary with `number`, `lines`, and `label`.
++ **filter:** Current filter position.
 + **shuttered:** Whether the shutter is closed or open.
 + **outport:** The output port.
 
