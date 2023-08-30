@@ -1,5 +1,5 @@
 # Oriel Cornerstone 260
-A library allowing easy control over an Oriel Cornerstone 260 monochromator with an RS-232C port.
+A library allowing easy control over an Oriel Cornerstone 260 monochromator with an GPIB port.
 > Install with `python -m pip install oriel-cornerstone-260`
 
 > **_NOTE:_** For newer models with a USB connection, see the [USB Connection](#usb_connection) section at the bottom of this page.
@@ -7,7 +7,7 @@ A library allowing easy control over an Oriel Cornerstone 260 monochromator with
 ## Monochromator
 Represents a monochromator.
 
-+ **Monochromator( port, timeout = 5 ):** Creates a new monochromator for the device at the specificed port, with the provided communication timeout.
++ **Monochromator( addr = None, timeout = 5, read_delay = 0.1 ):** Creates a new monochromator for the device at the specificed address, with the provided communication timeout and the delay of the read operation.
 
 ### Methods
 
@@ -18,7 +18,7 @@ Low level methods allows reading and writing to the device.
 
 + **disconnect():** Disconnects from the device.
 
-+ **write( msg ):** Writes a message to the device. Termination characters are added.
++ **write( msg ):** Writes a message to the device.
 
 + **read():** Reads a single response from the device.
 
@@ -47,9 +47,8 @@ High level methods are convenience methods used for commonly needed functions.
 
 
 ### Properties
-+ **_com:** `Serial` connection from `pyserial`.
-+ **connected:** Whether the device is connected or not.
-+ **port:** Device port.
++ **_instr:** GPIB instrument resource from `pyvisa`.
++ **addr:** Device address.
 + **term_chars:** Termination characters used for reading and writing. [Default: '\r\n']
 + **info:** Device info.
 + **position:** Wavelength position.
@@ -58,9 +57,6 @@ High level methods are convenience methods used for commonly needed functions.
 + **shuttered:** Whether the shutter is closed or open.
 + **outport:** The output port.
 
-## Response
-A `namedtuple` with properties `statement` which represents the command, and `response`. 
-
 ## Example
 
 A basic example for using a Monochromator.
@@ -68,7 +64,7 @@ A basic example for using a Monochromator.
 from oriel_cornerstone_260 import Monochromator
 
 # create device
-mono = Monochromator( 'COM9' )
+mono = Monochromator()
 
 # print monochromator info
 print( mono.info )
@@ -78,7 +74,7 @@ mono.goto( 600 )
 ```
 
 #### Note
-A Monochromator is a ultimately a `Serial` object from `pyserial`, so you can call any functions on a Monochromator that you would on a Serial object.
+A Monochromator is a ultimately a `GPIB` resource from `pyvisa`, so you can call any functions on a Monochromator that you would on a pyvisa resource.
 
 ---
 
