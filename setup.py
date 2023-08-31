@@ -8,8 +8,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 project_urls = {
-    'Source Code': 'https://github.com/bicarlsen/oriel-cornerstone-260',
-    'Bug Tracker': 'https://github.com/bicarlsen/oriel-cornerstone-260/issues'
+    'Source Code': 'https://github.com/Celger/oriel-cornerstone-260',
+    'Bug Tracker': 'https://github.com/Celger/oriel-cornerstone-260/issues'
 }
 
 setuptools.setup(
@@ -17,6 +17,8 @@ setuptools.setup(
     version=__version__,
     author="Brian Carlsen",
     author_email="carlsen.bri@gmail.com",
+    maintainer="Germano de Souza Fonseca",
+    maintainer_email="germanosfonseca@yahoo.com.br",
     description="Controller class for communicating with an Oriel Cornerstone 260 monochromator.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -28,9 +30,9 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
         "Operating System :: OS Independent",
-        "Development Status :: 3 - Alpha"
+        "Development Status :: 1 - Alpha"
     ],
     install_requires=[
-        'pyserial'
+        'pyvisa'
     ]
 )
